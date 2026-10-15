@@ -1,0 +1,163 @@
+{{ 'section-wagmart-hero.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'wagmart-hero.js' | asset_url }}" defer="defer"></script>
+
+<wagmart-hero
+  id="WagmartHero-{{ section.id }}"
+  class="wagmart-hero-section"
+  data-autoplay="{{ section.settings.autoplay }}"
+  data-autoplay-delay="{{ section.settings.autoplay_speed | times: 1000 }}"
+  role="region"
+  aria-roledescription="carousel"
+  aria-label="{{ section.settings.accessibility_label | escape }}"
+  style="--wagmart-hero-radius: {{ section.settings.corner_radius }}px; --wagmart-hero-overlay: {{ section.settings.overlay_strength | divided_by: 100.0 }};"
+>
+  <div class="wagmart-hero__frame page-width">
+    <div class="wagmart-hero__slides" aria-live="off">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign hero_asset = 'wagmart-hero-home.webp'
+          assign image_loading = 'lazy'
+          if forloop.first
+            assign image_loading = 'eager'
+          endif
+          case forloop.index
+            when 2
+              assign hero_asset = 'wagmart-hero-walk.webp'
+            when 3
+              assign hero_asset = 'wagmart-hero-grooming.webp'
+            when 4
+              assign hero_asset = 'wagmart-hero-friends.webp'
+            when 5
+              assign hero_asset = 'wagmart-hero-comfort.webp'
+          endcase
+          assign slide_alt = block.settings.image_alt | default: block.settings.heading
+        -%}
+        <article
+          class="wagmart-hero__slide{% if forloop.first %} is-active{% endif %}"
+          data-wagmart-slide
+          data-slide-index="{{ forloop.index0 }}"
+          role="group"
+          aria-roledescription="slide"
+          aria-label="{{ forloop.index }} of {{ section.blocks.size }}"
+          aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}"
+          {% unless forloop.first %}inert{% endunless %}
+          {{ block.shopify_attributes }}
+        >
+          <div class="wagmart-hero__media">
+            <picture>
+              {%- if block.settings.mobile_image != blank -%}
+                <source media="(max-width: 749px)" srcset="{{ block.settings.mobile_image | image_url: width: 1000 }}">
+              {%- endif -%}
+              {%- if block.settings.image != blank -%}
+                {{ block.settings.image | image_url: width: 2400 | image_tag: class: 'wagmart-hero__image', loading: image_loading, preload: forloop.first, alt: slide_alt }}
+              {%- else -%}
+                <img
+                  class="wagmart-hero__image"
+                  src="{{ hero_asset | asset_url }}"
+                  alt="{{ slide_alt | escape }}"
+                  width="2048"
+                  height="768"
+                  {% if forloop.first %}fetchpriority="high"{% else %}loading="lazy"{% endif %}
+                >
+              {%- endif -%}
+            </picture>
+          </div>
+          <div class="wagmart-hero__content">
+            {%- if block.settings.eyebrow != blank -%}
+              <p class="wagmart-hero__eyebrow">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M10 1.7 11.8 8l6.5 2-6.5 1.8-1.8 6.5L8.2 11.8l-6.5-1.8 6.5-2L10 1.7Z" fill="currentColor"/></svg>
+                {{ block.settings.eyebrow | escape }}
+              </p>
+            {%- endif -%}
+            {%- if forloop.first -%}
+              <h1 class="wagmart-hero__heading">{{ block.settings.heading | escape }}</h1>
+            {%- else -%}
+              <h2 class="wagmart-hero__heading">{{ block.settings.heading | escape }}</h2>
+            {%- endif -%}
+            {%- if block.settings.body != blank -%}
+              <p class="wagmart-hero__body">{{ block.settings.body | escape }}</p>
+            {%- endif -%}
+            {%- if block.settings.button_label != blank -%}
+              <a class="wagmart-hero__button" href="{{ block.settings.button_link | default: routes.all_products_collection_url }}">
+                <span>{{ block.settings.button_label | escape }}</span>
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M3.5 10h12m-5-5 5 5-5 5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"/></svg>
+              </a>
+            {%- endif -%}
+          </div>
+        </article>
+      {%- endfor -%}
+    </div>
+
+    {%- if section.blocks.size > 1 -%}
+      <div class="wagmart-hero__controls" aria-label="Slide controls">
+        <button class="wagmart-hero__arrow" type="button" data-wagmart-previous aria-label="Previous slide">
+          <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="m12.5 4.5-5.5 5.5 5.5 5.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"/></svg>
+        </button>
+        <div class="wagmart-hero__pagination" role="group" aria-label="Choose a slide">
+          {%- for block in section.blocks -%}
+            <button
+              class="wagmart-hero__dot{% if forloop.first %} is-active{% endif %}"
+              type="button"
+              data-wagmart-dot="{{ forloop.index0 }}"
+              aria-label="Show slide {{ forloop.index }}"
+              aria-current="{% if forloop.first %}true{% else %}false{% endif %}"
+            ><span></span></button>
+          {%- endfor -%}
+        </div>
+        <button class="wagmart-hero__arrow" type="button" data-wagmart-next aria-label="Next slide">
+          <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="m7.5 4.5 5.5 5.5-5.5 5.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"/></svg>
+        </button>
+        {%- if section.settings.autoplay -%}
+          <button class="wagmart-hero__pause" type="button" data-wagmart-pause aria-label="Pause slideshow">
+            <svg class="wagmart-hero__pause-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M6.5 4.5v11m7-11v11" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"/></svg>
+            <svg class="wagmart-hero__play-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="m7 4.8 8.5 5.2L7 15.2V4.8Z" fill="currentColor"/></svg>
+          </button>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</wagmart-hero>
+
+{% schema %}
+{
+  "name": "WAGMART hero slider",
+  "tag": "section",
+  "class": "section-wagmart-hero",
+  "max_blocks": 5,
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Hero slide",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Desktop image" },
+        { "type": "image_picker", "id": "mobile_image", "label": "Mobile image (optional)" },
+        { "type": "text", "id": "image_alt", "label": "Image description", "default": "A pet enjoying a calm moment at home" },
+        { "type": "text", "id": "eyebrow", "label": "Small introduction", "default": "For pets and the people who love them" },
+        { "type": "text", "id": "heading", "label": "Heading", "default": "For every kind of good day" },
+        { "type": "textarea", "id": "body", "label": "Description", "default": "Thoughtful picks for the pets who make home feel like home." },
+        { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop pet essentials" },
+        { "type": "url", "id": "button_link", "label": "Button link" }
+      ]
+    }
+  ],
+  "settings": [
+    { "type": "text", "id": "accessibility_label", "label": "Carousel description", "default": "WAGMART featured pet stories" },
+    { "type": "checkbox", "id": "autoplay", "label": "Automatically change slides", "default": true },
+    { "type": "range", "id": "autoplay_speed", "min": 4, "max": 10, "step": 1, "unit": "s", "label": "Time between slides", "default": 6 },
+    { "type": "range", "id": "overlay_strength", "min": 0, "max": 100, "step": 5, "unit": "%", "label": "Image fade behind text", "default": 55 },
+    { "type": "range", "id": "corner_radius", "min": 0, "max": 40, "step": 2, "unit": "px", "label": "Corner rounding", "default": 26 }
+  ],
+  "presets": [
+    {
+      "name": "WAGMART hero slider",
+      "blocks": [
+        { "type": "slide", "settings": { "eyebrow": "For pets and the people who love them", "heading": "For every kind of good day", "body": "Thoughtful picks for the pets who make home feel like home.", "button_label": "Shop pet essentials" } },
+        { "type": "slide", "settings": { "eyebrow": "Made for everyday adventures", "heading": "Make every walk a happy one", "body": "Find walk-time essentials for the four-legged friend by your side.", "button_label": "Shop walk essentials" } },
+        { "type": "slide", "settings": { "eyebrow": "A little care goes a long way", "heading": "Gentle grooming, happier cuddles", "body": "Make at-home grooming feel simple, calm, and a little more special.", "button_label": "Explore grooming" } },
+        { "type": "slide", "settings": { "eyebrow": "Good things are better together", "heading": "Little moments, big tail wags", "body": "Bring a little more fun to playtime for dogs, cats, and their people.", "button_label": "Explore playtime" } },
+        { "type": "slide", "settings": { "eyebrow": "Comfort for the everyday", "heading": "A softer place to land", "body": "Discover familiar everyday comforts for the pets who make your days brighter.", "button_label": "Shop pet comforts" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,30 @@
+{
+  "sections": {
+    "wagmart_hero": {
+      "type": "wagmart-hero",
+      "blocks": {
+        "hero_slide_1": { "type": "slide", "settings": { "image_alt": "A golden retriever and tabby cat relaxing together in a bright home", "eyebrow": "For pets and the people who love them", "heading": "For every kind of good day", "body": "Thoughtful picks for the pets who make home feel like home.", "button_label": "Shop pet essentials", "button_link": "shopify://collections/all" } },
+        "hero_slide_2": { "type": "slide", "settings": { "image_alt": "A small dog out for a walk in a sunny park", "eyebrow": "Made for everyday adventures", "heading": "Make every walk a happy one", "body": "Find walk-time essentials for the four-legged friend by your side.", "button_label": "Shop walk essentials", "button_link": "shopify://collections/all" } },
+        "hero_slide_3": { "type": "slide", "settings": { "image_alt": "A person gently drying a clean white dog with a soft lavender towel", "eyebrow": "A little care goes a long way", "heading": "Gentle grooming, happier cuddles", "body": "Make at-home grooming feel simple, calm, and a little more special.", "button_label": "Explore grooming", "button_link": "shopify://collections/all" } },
+        "hero_slide_4": { "type": "slide", "settings": { "image_alt": "An orange cat and a small brown dog resting together at home", "eyebrow": "Good things are better together", "heading": "Little moments, big tail wags", "body": "Bring a little more fun to playtime for dogs, cats, and their people.", "button_label": "Explore playtime", "button_link": "shopify://collections/all" } },
+        "hero_slide_5": { "type": "slide", "settings": { "image_alt": "A senior golden dog resting beside its owner on a sunlit porch", "eyebrow": "Comfort for the everyday", "heading": "A softer place to land", "body": "Discover familiar everyday comforts for the pets who make your days brighter.", "button_label": "Shop pet comforts", "button_link": "shopify://collections/all" } }
+      },
+      "block_order": ["hero_slide_1", "hero_slide_2", "hero_slide_3", "hero_slide_4", "hero_slide_5"],
+      "settings": { "accessibility_label": "WAGMART featured pet stories", "autoplay": true, "autoplay_speed": 6, "overlay_strength": 55, "corner_radius": 26 }
+    },
+    "wagmart_categories": {
+      "type": "wagmart-categories",
+      "blocks": {
+        "category_grooming": { "type": "category", "settings": { "title": "Grooming & care", "caption": "For fresh, happy days", "catalog_asset": "wagmart-category-grooming", "use_custom_image": false, "image_alt": "Pet grooming brush from the WAGMART catalog", "tint": "#f0e8ff" } },
+        "category_walks": { "type": "category", "settings": { "title": "Walks & outings", "caption": "Ready for little adventures", "catalog_asset": "wagmart-category-walks", "use_custom_image": false, "image_alt": "Dog walking accessory from the WAGMART catalog", "tint": "#e8f5f4" } },
+        "category_treats": { "type": "category", "settings": { "title": "Treats & chews", "caption": "A tasty little reward", "catalog_asset": "wagmart-category-treats", "use_custom_image": false, "image_alt": "Chew treat from the WAGMART catalog", "tint": "#fff0e6" } },
+        "category_feeding": { "type": "category", "settings": { "title": "Feeding time", "caption": "Made for daily routines", "catalog_asset": "wagmart-category-feeding", "use_custom_image": false, "image_alt": "Pet feeding accessory from the WAGMART catalog", "tint": "#fff4d9" } },
+        "category_travel": { "type": "category", "settings": { "title": "Travel essentials", "caption": "Comfy on the go", "catalog_asset": "wagmart-category-travel", "use_custom_image": false, "image_alt": "Pet travel accessory from the WAGMART catalog", "tint": "#e9efff" } },
+        "category_cat_care": { "type": "category", "settings": { "title": "Cat favorites", "caption": "Curious cats welcome", "catalog_asset": "wagmart-category-cat-care", "use_custom_image": false, "image_alt": "Cat care toy from the WAGMART catalog", "tint": "#fde8f4" } }
+      },
+      "block_order": ["category_grooming", "category_walks", "category_treats", "category_feeding", "category_travel", "category_cat_care"],
+      "settings": { "eyebrow": "A little something for every paw", "heading": "Shop by category", "intro": "Everyday finds for the walks, play, care and cuddles you share.", "columns_desktop": 3, "background": "#fff9f3", "text_color": "#282331", "accent_color": "#7b46e4", "show_link": true, "link_label": "Explore all pet essentials" }
+    }
+  },
+  "order": ["wagmart_hero", "wagmart_categories"]
+}

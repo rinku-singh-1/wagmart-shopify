@@ -1,0 +1,24 @@
+.wagmart-categories{background:var(--wagmart-categories-bg,#fff9f3);color:var(--wagmart-categories-ink,#282331);padding:clamp(48px,7vw,92px) 0 clamp(56px,7vw,88px)}
+.wagmart-categories__inner{max-width:1320px;margin-inline:auto}
+.wagmart-categories__heading{text-align:center;max-width:620px;margin:0 auto 34px}
+.wagmart-categories__eyebrow{margin:0 0 10px;color:var(--wagmart-categories-accent,#7b46e4);font-size:12px;font-weight:900;letter-spacing:.15em;text-transform:uppercase}
+.wagmart-categories__heading h2{margin:0;font-family:'Fredoka','Nunito Sans',sans-serif;font-size:clamp(34px,4.2vw,52px);font-weight:600;letter-spacing:-.035em;line-height:1.08}
+.wagmart-categories__intro{margin:12px auto 0;color:#6d6876;font-size:16px;line-height:1.55}
+.wagmart-categories__grid{display:grid;grid-template-columns:repeat(var(--wagmart-categories-columns,3),minmax(0,1fr));gap:18px}
+.wagmart-category-card{display:flex;min-width:0;flex-direction:column;overflow:hidden;border:1px solid rgba(40,35,49,.055);border-radius:22px;background:#fff;color:inherit;text-decoration:none;box-shadow:0 5px 20px rgba(40,35,49,.035);transition:transform .22s ease,box-shadow .22s ease}
+.wagmart-category-card:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(40,35,49,.1)}
+.wagmart-category-card:focus-visible,.wagmart-categories__footer a:focus-visible{outline:3px solid var(--wagmart-categories-accent,#7b46e4);outline-offset:4px}
+.wagmart-category-card__art{position:relative;display:grid;min-height:205px;aspect-ratio:1.58;place-items:center;overflow:hidden;background:var(--card-tint,#f0e8ff)}
+.wagmart-category-card__art:before,.wagmart-category-card__art:after{position:absolute;width:130px;height:130px;border-radius:50%;background:rgba(255,255,255,.32);content:"";pointer-events:none}
+.wagmart-category-card__art:before{top:-70px;left:-36px}.wagmart-category-card__art:after{right:-70px;bottom:-82px;width:190px;height:190px}
+.wagmart-category-card__art img{position:relative;z-index:1;width:76%;height:76%;object-fit:contain;mix-blend-mode:multiply;transition:transform .3s ease}
+.wagmart-category-card:hover .wagmart-category-card__art img{transform:scale(1.055)}
+.wagmart-category-card__meta{position:relative;display:flex;min-height:82px;flex:1;flex-direction:column;justify-content:center;padding:16px 52px 16px 20px}
+.wagmart-category-card__title{font-size:18px;font-weight:900;letter-spacing:-.02em;line-height:1.2}
+.wagmart-category-card__caption{margin-top:5px;color:#77717f;font-size:13px;line-height:1.35}
+.wagmart-category-card__arrow{position:absolute;top:50%;right:17px;display:grid;width:34px;height:34px;transform:translateY(-50%);place-items:center;border-radius:50%;background:#f5efff;color:var(--wagmart-categories-accent,#7b46e4);transition:background .2s ease,color .2s ease}
+.wagmart-category-card__arrow svg{width:18px;height:18px}.wagmart-category-card:hover .wagmart-category-card__arrow{background:var(--wagmart-categories-accent,#7b46e4);color:#fff}
+.wagmart-categories__footer{margin-top:30px;text-align:center}.wagmart-categories__footer a{display:inline-flex;align-items:center;gap:10px;color:var(--wagmart-categories-accent,#7b46e4);font-size:14px;font-weight:900;text-decoration:none}.wagmart-categories__footer a span{font-size:20px;transition:transform .2s ease}.wagmart-categories__footer a:hover span{transform:translateX(4px)}
+@media(max-width:989px){.wagmart-categories__grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.wagmart-category-card__art{min-height:165px}.wagmart-category-card__meta{padding-left:15px}.wagmart-category-card__title{font-size:16px}}
+@media(max-width:749px){.wagmart-categories{padding:50px 0 58px}.wagmart-categories__heading{margin-bottom:24px;padding-inline:8px}.wagmart-categories__intro{font-size:14px}.wagmart-categories__grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.wagmart-category-card{border-radius:17px}.wagmart-category-card__art{min-height:0;aspect-ratio:1.08}.wagmart-category-card__art img{width:82%;height:82%}.wagmart-category-card__meta{min-height:72px;padding:13px 40px 13px 13px}.wagmart-category-card__title{font-size:14px}.wagmart-category-card__caption{font-size:11px}.wagmart-category-card__arrow{right:9px;width:27px;height:27px}.wagmart-category-card__arrow svg{width:15px;height:15px}.wagmart-categories__footer{margin-top:24px}}
+@media(prefers-reduced-motion:reduce){.wagmart-category-card,.wagmart-category-card__art img,.wagmart-category-card__arrow,.wagmart-categories__footer a span{transition:none}}

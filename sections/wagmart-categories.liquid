@@ -1,0 +1,77 @@
+{{ 'section-wagmart-categories.css' | asset_url | stylesheet_tag }}
+
+<section class="wagmart-categories" aria-labelledby="wagmart-categories-title-{{ section.id }}" style="--wagmart-categories-bg: {{ section.settings.background }}; --wagmart-categories-ink: {{ section.settings.text_color }}; --wagmart-categories-accent: {{ section.settings.accent_color }}; --wagmart-categories-columns: {{ section.settings.columns_desktop }};">
+  <div class="wagmart-categories__inner page-width">
+    <div class="wagmart-categories__heading">
+      {%- if section.settings.eyebrow != blank -%}<p class="wagmart-categories__eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+      <h2 id="wagmart-categories-title-{{ section.id }}">{{ section.settings.heading | escape }}</h2>
+      {%- if section.settings.intro != blank -%}<p class="wagmart-categories__intro">{{ section.settings.intro | escape }}</p>{%- endif -%}
+    </div>
+    <div class="wagmart-categories__grid">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign tile_image = block.settings.image
+          assign tile_asset = block.settings.catalog_asset | append: '.webp'
+        -%}
+        <a class="wagmart-category-card" href="{{ block.settings.link | default: routes.all_products_collection_url }}" style="--card-tint: {{ block.settings.tint }};" {{ block.shopify_attributes }}>
+          <span class="wagmart-category-card__art">
+            {%- if tile_image != blank and block.settings.use_custom_image -%}
+              {{ tile_image | image_url: width: 560 | image_tag: widths: '240, 360, 560', sizes: '(min-width: 990px) 24vw, (min-width: 750px) 32vw, 44vw', loading: 'lazy', alt: block.settings.image_alt }}
+            {%- elsif tile_asset != blank -%}
+              <img src="{{ tile_asset | asset_url }}" alt="{{ block.settings.image_alt | escape }}" loading="lazy" width="311" height="311">
+            {%- endif -%}
+          </span>
+          <span class="wagmart-category-card__meta">
+            <span class="wagmart-category-card__title">{{ block.settings.title | escape }}</span>
+            {%- if block.settings.caption != blank -%}<span class="wagmart-category-card__caption">{{ block.settings.caption | escape }}</span>{%- endif -%}
+            <span class="wagmart-category-card__arrow" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M3.5 10h12m-5-5 5 5-5 5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"/></svg></span>
+          </span>
+        </a>
+      {%- endfor -%}
+    </div>
+    {%- if section.settings.show_link and section.settings.link_label != blank -%}
+      <div class="wagmart-categories__footer"><a href="{{ section.settings.footer_link | default: routes.all_products_collection_url }}">{{ section.settings.link_label | escape }} <span aria-hidden="true">→</span></a></div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "WAGMART categories",
+  "tag": "section",
+  "class": "section-wagmart-categories",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "A little something for every paw" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Shop by category" },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Everyday finds for the walks, play, care and cuddles you share." },
+    { "type": "range", "id": "columns_desktop", "label": "Desktop columns", "min": 3, "max": 6, "step": 1, "default": 3 },
+    { "type": "color", "id": "background", "label": "Section background", "default": "#fff9f3" },
+    { "type": "color", "id": "text_color", "label": "Text color", "default": "#282331" },
+    { "type": "color", "id": "accent_color", "label": "Accent color", "default": "#7b46e4" },
+    { "type": "checkbox", "id": "show_link", "label": "Show view all link", "default": true },
+    { "type": "text", "id": "link_label", "label": "View all label", "default": "Explore all pet essentials" },
+    { "type": "url", "id": "footer_link", "label": "View all link" }
+  ],
+  "blocks": [
+    { "type": "category", "name": "Category", "settings": [
+      { "type": "text", "id": "title", "label": "Title", "default": "Grooming & care" },
+      { "type": "text", "id": "caption", "label": "Caption", "default": "For fresh, happy days" },
+      { "type": "image_picker", "id": "image", "label": "Custom image (optional)" },
+      { "type": "checkbox", "id": "use_custom_image", "label": "Use custom image", "default": false },
+      { "type": "select", "id": "catalog_asset", "label": "Catalog image", "default": "wagmart-category-grooming", "options": [
+        { "value": "wagmart-category-grooming", "label": "Grooming tool" },
+        { "value": "wagmart-category-walks", "label": "Walk accessory" },
+        { "value": "wagmart-category-treats", "label": "Chew treats" },
+        { "value": "wagmart-category-feeding", "label": "Feeding accessory" },
+        { "value": "wagmart-category-travel", "label": "Travel accessory" },
+        { "value": "wagmart-category-cat-care", "label": "Cat care toy" }
+      ] },
+      { "type": "text", "id": "image_alt", "label": "Image description", "default": "Pet accessory from the WAGMART catalog" },
+      { "type": "url", "id": "link", "label": "Category link" },
+      { "type": "color", "id": "tint", "label": "Card tint", "default": "#f0e8ff" }
+    ] }
+  ],
+  "max_blocks": 6,
+  "presets": [ { "name": "WAGMART categories", "blocks": [ { "type": "category", "settings": { "title": "Grooming & care", "caption": "For fresh, happy days", "catalog_asset": "wagmart-category-grooming", "tint": "#f0e8ff" } }, { "type": "category", "settings": { "title": "Walks & outings", "caption": "Ready for little adventures", "catalog_asset": "wagmart-category-walks", "tint": "#e8f5f4" } }, { "type": "category", "settings": { "title": "Treats & chews", "caption": "A tasty little reward", "catalog_asset": "wagmart-category-treats", "tint": "#fff0e6" } }, { "type": "category", "settings": { "title": "Feeding time", "caption": "Made for daily routines", "catalog_asset": "wagmart-category-feeding", "tint": "#fff4d9" } }, { "type": "category", "settings": { "title": "Travel essentials", "caption": "Comfy on the go", "catalog_asset": "wagmart-category-travel", "tint": "#e9efff" } }, { "type": "category", "settings": { "title": "Cat favorites", "caption": "Curious cats welcome", "catalog_asset": "wagmart-category-cat-care", "tint": "#fde8f4" } } ] } ]
+}
+{% endschema %}
